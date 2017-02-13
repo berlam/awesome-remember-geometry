@@ -18,7 +18,6 @@ tag.connect_signal("property::layout", function(t)
 	end
 end)
 
-client.add_signal("maximize")
 client.connect_signal("maximize", function(c)
 	if not floatingwindows[c.window] then
 		floatingwindows[c.window] = {}
