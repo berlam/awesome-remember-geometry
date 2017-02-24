@@ -19,18 +19,18 @@ tag.connect_signal("property::layout", function(t)
 end)
 
 client.connect_signal("maximize", function(c)
-	if not floatingwindows[c.window] then
-		floatingwindows[c.window] = {}
-	end
-	-- max if
-	--- both are false
-	--- only one is true
-	local maxh = c.maximized_horizontal
-	local maxv = c.maximized_vertical
-	local max = (not maxh and not maxv) or not (maxh and maxv)
-	floatingwindows[c.window].manual_max = max
-	c.maximized_horizontal = max
-	c.maximized_vertical = max
+if not floatingwindows[c.window] then
+	floatingwindows[c.window] = {}
+end
+-- max if
+--- both are false
+--- only one is true
+local max_h = c.maximized_horizontal
+local max_v = c.maximized_vertical
+local max = (not max_h and not max_v) or not (max_h and max_v)
+floatingwindows[c.window].manual_max = max
+c.maximized_horizontal = max
+c.maximized_vertical = max
 end)
 
 client.connect_signal("unmanage", function(c) 
