@@ -87,6 +87,6 @@ end
 end)
 
 function isFloatingClient(c)
-	return (awful.layout.get(mouse.screen) == awful.layout.suit.floating) or (awful.client.floating.get(c) == true)
+	return (awful.layout.get(mouse.screen) == awful.layout.suit.floating) or (c.floating == true)
 end
 -- }}}
