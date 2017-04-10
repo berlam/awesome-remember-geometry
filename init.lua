@@ -2,6 +2,7 @@ local awful = require("awful")
 local client = client
 local tag = tag
 local ipairs = ipairs
+local gears = require("gears")
 
 module("awesome-remember-geometry")
 
@@ -39,12 +40,19 @@ if t.layout == awful.layout.suit.floating then
 end
 end)
 
-client.connect_signal("property::floating_geometry", function(c)
-if not c.fullscreen and not c.minimized then
+client.connect_signal("request::geometry", function(c, context)
+if context == "mouse.resize" and not c.fullscreen then
+	c.maximized_horizontal = false
+	c.maximized_vertical = false
+end
+end)
+
+client.connect_signal("property::geometry", function(c)
+if c.remember_geometry and c.first_tag.layout == awful.layout.suit.floating and not c.fullscreen and not c.minimized then
 	-- if client is almost maximized then set it to maximized.
 	-- if client was maximized before allow to go back to normal view.
 	cgeometry = c:geometry()
-	sgeometry = screen[c.screen].workarea
+	sgeometry = c.screen.workarea
 	c.remember_geometry.floating_geometry = cgeometry
 	if not c.maximized_horizontal then
 		diffWidth = sgeometry.width - cgeometry.width - c.border_width
