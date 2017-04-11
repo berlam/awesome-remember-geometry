@@ -2,7 +2,6 @@ local awful = require("awful")
 local client = client
 local tag = tag
 local ipairs = ipairs
-local gears = require("gears")
 
 module("awesome-remember-geometry")
 
