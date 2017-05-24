@@ -31,6 +31,12 @@ client.connect_signal("unmanage", function(c)
 c.remember_geometry = nil
 end)
 
+client.connect_signal("property::floating", function(c)
+if c.floating then
+	c:geometry(c.remember_geometry.floating_geometry)
+end
+end)
+
 tag.connect_signal("property::layout", function(t)
 if t.layout == awful.layout.suit.floating then
 	for k, c in ipairs(t:clients()) do
@@ -47,7 +53,8 @@ end
 end)
 
 client.connect_signal("property::geometry", function(c)
-if c.remember_geometry and c.first_tag.layout == awful.layout.suit.floating and not c.fullscreen and not c.minimized then
+local is_floating = c.floating or (c.first_tag and c.first_tag.layout == awful.layout.suit.floating)
+if c.remember_geometry and is_floating and not c.fullscreen and not c.minimized then
 	-- if client is almost maximized then set it to maximized.
 	-- if client was maximized before allow to go back to normal view.
 	cgeometry = c:geometry()
