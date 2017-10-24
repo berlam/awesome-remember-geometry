@@ -32,7 +32,7 @@ c.remember_geometry = nil
 end)
 
 client.connect_signal("property::floating", function(c)
-if c.floating then
+if c.floating and c.remember_geometry then
 	c:geometry(c.remember_geometry.floating_geometry)
 end
 end)
