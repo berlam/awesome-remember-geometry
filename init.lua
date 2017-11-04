@@ -3,8 +3,6 @@ local client = client
 local tag = tag
 local ipairs = ipairs
 
-module("awesome-remember-geometry")
-
 -- {{{ Remember client size when switching between floating and tiling.
 client.connect_signal("maximize", function(c)
 	-- max if
