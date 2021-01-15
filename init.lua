@@ -14,6 +14,7 @@ client.connect_signal("maximize", function(c)
 	c.remember_geometry.maximized_manual = max
 	c.maximized_horizontal = max
 	c.maximized_vertical = max
+	c.maximized = max
 end)
 
 client.connect_signal("manage", function(c)
